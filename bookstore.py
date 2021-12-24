@@ -33,6 +33,32 @@ e4=Entry(window,textvariable=isbn_text)
 e4.grid(row=1,column=3)
 
 list1=Listbox(window, height=6,width=35)
-list1.grid(row=2,column=0,rowspan=6,columnspan=2) # 
+list1.grid(row=2,column=0,rowspan=6,columnspan=2) # unclear how height/with and the spans interact.
+
+#need to create the scrollbar method
+sb1=Scrollbar(window)
+sb1.grid(row=2,column=2,rowspan=6)
+
+# the configure method combines the listbox and the scrollbar
+list1.configure(yscrollcommand=sb1.set) # on the y axis
+sb1.configure(command=list1.yview) # telling it to position on the y axis
+
+b1=Button(window,text="View All", width=12)
+b1.grid(row=2,column=3)
+
+b2=Button(window,text="Search entry", width=12)
+b2.grid(row=3,column=3)
+
+b3=Button(window,text="Add entry", width=12)
+b3.grid(row=4,column=3)
+
+b4=Button(window,text="Update", width=12)
+b4.grid(row=5,column=3)
+
+b5=Button(window,text="Delete", width=12)
+b5.grid(row=6,column=3)
+
+b6=Button(window,text="Close", width=12)
+b6.grid(row=7,column=3)
 
 window.mainloop()
