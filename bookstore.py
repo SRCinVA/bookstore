@@ -1,4 +1,5 @@
 from tkinter import *
+import backend
 
 window = Tk()
 
@@ -55,7 +56,7 @@ b3.grid(row=4,column=3)
 b4=Button(window,text="Update", width=12)
 b4.grid(row=5,column=3)
 
-b5=Button(window,text="Delete", width=12)
+b5=Button(window,text="Delete selected", width=12)
 b5.grid(row=6,column=3)
 
 b6=Button(window,text="Close", width=12)
