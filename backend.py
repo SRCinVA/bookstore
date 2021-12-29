@@ -25,6 +25,15 @@ def view(): # fetches all rows
     conn.close() 
     return rows
 
+def search(title="", author="", year="", isbn=""):  # pass empty strings as defaults so that it doesn't throw an error.
+    conn=sqlite3.connect("books.db")
+    cur=conn.cursor()
+    cur.execute("SELECT * FROM book WHERE title=? OR author=? OR year=? OR isbn=?", (title,author,year,isbn)) #still unclear why you need to pass in this tuple
+    rows=cur.fetchall()
+    conn.close() 
+    return rows
+
 connect() # this ensures that this function will run when bookstore.py (and then backend.py) are run.
-insert("The sea", "John Smith", 2021, 6565748746) 
+insert("The land", "Ben Franklin", 2012, 4874665657) 
 print(view())
+print(search(author="Ben Franklin"))
