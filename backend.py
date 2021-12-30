@@ -25,7 +25,7 @@ def view(): # fetches all rows
     conn.close() 
     return rows
 
-def search(title="", author="", year="", isbn=""):  # pass empty strings as defaults so that it doesn't throw an error.
+def search(title="", author="", year="", isbn=""):  # need to pass the id of the row to delete
     conn=sqlite3.connect("books.db")
     cur=conn.cursor()
     cur.execute("SELECT * FROM book WHERE title=? OR author=? OR year=? OR isbn=?", (title,author,year,isbn)) #still unclear why you need to pass in this tuple
@@ -33,7 +33,17 @@ def search(title="", author="", year="", isbn=""):  # pass empty strings as defa
     conn.close() 
     return rows
 
+def delete(id):
+    conn=sqlite3.connect("books.db")
+    cur=conn.cursor()
+    cur.execute("DELETE FROM book WHERE id=?", (id,)) # first is the "column name" for id, then the "function parameter" for id.
+    # rows=cur.fetchall() won't need this one.
+    conn.commit()
+    conn.close()
+
+def update():
+    pass
+
 connect() # this ensures that this function will run when bookstore.py (and then backend.py) are run.
-insert("The land", "Ben Franklin", 2012, 4874665657) 
-print(view())
-print(search(author="Ben Franklin"))
+delete(7) # whichever record "id 1" is.
+print(view())  # view all existing records
