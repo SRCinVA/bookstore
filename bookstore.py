@@ -1,6 +1,11 @@
 from tkinter import *
 import backend
 
+def view_command(): # we need to insert each of the 5 items in the tuple into the list
+    # iterate over the tuples (items)
+    for row in backend.view():
+        list1.insert(END,row)  # 'END' ensures that every item is added to the end of the list
+
 window = Tk()
 
 # need four labels for this build
@@ -44,7 +49,7 @@ sb1.grid(row=2,column=2,rowspan=6)
 list1.configure(yscrollcommand=sb1.set) # on the y axis
 sb1.configure(command=list1.yview) # telling it to position on the y axis
 
-b1=Button(window,text="View All", width=12)
+b1=Button(window,text="View All", width=12,command=view_command)  # no brackets here
 b1.grid(row=2,column=3)
 
 b2=Button(window,text="Search entry", width=12)
