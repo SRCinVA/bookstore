@@ -33,17 +33,22 @@ def search(title="", author="", year="", isbn=""):  # need to pass the id of the
     conn.close() 
     return rows
 
-def delete(id):
+def delete(id,title,author,year,isbn):
     conn=sqlite3.connect("books.db")
     cur=conn.cursor()
-    cur.execute("DELETE FROM book WHERE id=?", (id,)) # first is the "column name" for id, then the "function parameter" for id.
+    cur.execute("DELETE FROM book WHERE id=?", (id,title,author,year,isbn)) # first is the "column name", then the "function parameter".
     # rows=cur.fetchall() won't need this one.
     conn.commit()
     conn.close()
 
-def update():
-    pass
+def update(id,title, author, year, isbn):
+    conn=sqlite3.connect("books.db")
+    cur=conn.cursor()
+    cur.execute("UPDATE book SET title=?, author=?, year=?, isbn=? WHERE id=?",(title,author,year,isbn,id)) # column name" for id, then the "function parameter" for id.
+    conn.commit()
+    conn.close()
 
 connect() # this ensures that this function will run when bookstore.py (and then backend.py) are run.
-delete(7) # whichever record "id 1" is.
+# delete(7) whichever record "id 1" is.
+update(5, "Here Comes the Sun","Jorge Washington","2028","3456789")
 print(view())  # view all existing records
