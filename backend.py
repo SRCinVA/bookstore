@@ -49,6 +49,5 @@ def update(id,title, author, year, isbn):
     conn.close()
 
 connect() # this ensures that this function will run when bookstore.py (and then backend.py) are run.
-# delete(7) whichever record "id 1" is.
-update(5, "Here Comes the Sun","Jorge Washington","2028","3456789")
+# insert("A Great Work of Art", "Yours Truly", 2100, 5464758696)
 print(view())  # view all existing records
