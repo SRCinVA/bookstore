@@ -15,6 +15,9 @@ def search_command():
 
 def add_command():
     backend.insert(title_text.get(), author_text.get(), year_text.get(), isbn_text.get())
+    list1.insert(0, END)  # this strange line again ... to "clear the list" ...
+    list1.insert(END, (title_text.get(), author_text.get(), year_text.get(), isbn_text.get()))
+    # (for above) at the END of the list, insert those 4 posssible values as a tuple
 
 window = Tk()
 
