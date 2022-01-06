@@ -50,4 +50,4 @@ def update(id,title, author, year, isbn):
 
 connect() # this ensures that this function will run when bookstore.py (and then backend.py) are run.
 # insert("A Great Work of Art", "Yours Truly", 2100, 5464758696)
-print(view())  # view all existing records
+# print(view())  # view all existing records

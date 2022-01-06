@@ -2,8 +2,9 @@ from tkinter import *
 import backend
 
 def get_selected_row(event):  # (did not understand his explanation for this)
-    index=list1.curselection() # to find the index of the row you want to delete
-    print(index)
+    global selected_tuple  # need to make this variable available outside thsi local function
+    index=list1.curselection()[0] # to find the index of the row you want to delete. We grad item 0 of the resulting tuple.
+    selected_tuple=list1.get(index) # this says "grab the entire tuple (or row) at [index] in teh list selected by your cursor."
 
 def view_command(): # we need to insert each of the 5 items in the tuple into the list
     # to ensure that the list box on the left is empty (not sure what this achieves; supposed to clear it out but it looks the same each time)
@@ -24,7 +25,7 @@ def add_command():
     # (for above) at the END of the list, insert those 4 posssible values as a tuple
 
 def delete_command():
-    pass
+    backend.delete(selected_tuple[0])  # needed to make selected_tuple globally available, pulling out the id (the 0 index item)
 
 window = Tk()
 
