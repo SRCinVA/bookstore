@@ -33,10 +33,10 @@ def search(title="", author="", year="", isbn=""):  # need to pass the id of the
     conn.close() 
     return rows
 
-def delete(id,title,author,year,isbn):
+def delete(id):
     conn=sqlite3.connect("books.db")
     cur=conn.cursor()
-    cur.execute("DELETE FROM book WHERE id=?", (id,title,author,year,isbn)) # first is the "column name", then the "function parameter".
+    cur.execute("DELETE FROM book WHERE id=?", (id,)) # first is the "column name", then the "function parameter".
     # rows=cur.fetchall() won't need this one.
     conn.commit()
     conn.close()
