@@ -2,17 +2,28 @@ from tkinter import *
 import backend
 
 def get_selected_row(event):  # (did not understand his explanation for this)
-    global selected_tuple  # need to make this variable available outside thsi local function
-    index=list1.curselection()[0] # to find the index of the row you want to delete. We grad item 0 of the resulting tuple.
-    selected_tuple=list1.get(index) # this says "grab the entire tuple (or row) at [index] in teh list selected by your cursor."
-    e1.delete(0,END)
-    e1.insert(END,selected_tuple[1])
-    e2.delete(0,END)
-    e2.insert(END,selected_tuple[2])
-    e3.delete(0,END)
-    e3.insert(END,selected_tuple[3])
-    e4.delete(0,END)
-    e4.insert(END,selected_tuple[4])
+    try:
+        global selected_tuple  # need to make this variable available outside thsi local function
+        index=list1.curselection()[0] # to find the index of the row you want to delete. We grad item 0 of the resulting tuple.
+        selected_tuple=list1.get(index) # this says "grab the entire tuple (or row) at [index] in teh list selected by your cursor."
+        e1.delete(0,END)
+        e1.insert(END,selected_tuple[1])
+        e2.delete(0,END)
+        e2.insert(END,selected_tuple[2])
+        e3.delete(0,END)
+        e3.insert(END,selected_tuple[3])
+        e4.delete(0,END)
+        e4.insert(END,selected_tuple[4])
+    except IndexError: 
+        pass
+
+# Ardit's exact explanation for the bug (clicking on the list field and causing an index error):
+# "If there is an IndexError, none of the lines under try  will be executed; the line under except  
+# will be executed, which is pass. The pass statement means "do nothing". Therefore, the function 
+# will do nothing when there's an empty listbox." (Doing nothing is exactly what we would like to 
+# see happen.)
+
+
 
 def view_command(): # we need to insert each of the 5 items in the tuple into the list
     # to ensure that the list box on the left is empty (not sure what this achieves; supposed to clear it out but it looks the same each time)
@@ -40,8 +51,10 @@ def update_command():
 
 window = Tk()
 
-# need four labels for this build
+# a title for the window:
+window.wm_title("Book Store") # notice that wm_title is a built-in method for the window object
 
+# need four labels for this build
 l1=Label(window, text="Title")
 l1.grid(row=0,column=0)
 
@@ -98,7 +111,7 @@ b4.grid(row=5,column=3)
 b5=Button(window,text="Delete selected", width=12, command=delete_command)
 b5.grid(row=6,column=3)
 
-b6=Button(window,text="Close", width=12)
+b6=Button(window,text="Close", width=12, command=window.destroy) # there will be no toher need for a front end function; we can accomplish this from here
 b6.grid(row=7,column=3)
 
 window.mainloop()
