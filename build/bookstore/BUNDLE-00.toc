@@ -1,0 +1,3 @@
+([('bookstore',
+   '/Users/stephencitarella/Desktop/Coding_projects/bookstore/dist/bookstore',
+   'EXECUTABLE')],)
