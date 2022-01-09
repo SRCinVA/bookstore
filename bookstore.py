@@ -1,5 +1,9 @@
 from tkinter import *
-import backend
+from backend import Database  # with OOP, you're now importing a specific object
+
+database=Database()  
+# 'Database' is the blueprint from the backend.
+# 'database' is the instance of that object here for our use.
 
 def get_selected_row(event):  # (did not understand his explanation for this)
     try:
@@ -29,25 +33,25 @@ def view_command(): # we need to insert each of the 5 items in the tuple into th
     # to ensure that the list box on the left is empty (not sure what this achieves; supposed to clear it out but it looks the same each time)
     list1.delete(0,END)
     # iterate over the tuples (items)
-    for row in backend.view():
+    for row in Database.view():
         list1.insert(END,row)  # 'END' ensures that every item is added to the end of the list
 
 def search_command():
     list1.delete(0,END)
-    for row in backend.search(title_text.get(), author_text.get(), year_text.get(), isbn_text.get()):  # need the .get() method because these are all StringVar objects
+    for row in Database.search(title_text.get(), author_text.get(), year_text.get(), isbn_text.get()):  # need the .get() method because these are all StringVar objects
         list1.insert(END, row)  # we want to insert new values (a row) at the end of list1.
 
 def add_command():
-    backend.insert(title_text.get(), author_text.get(), year_text.get(), isbn_text.get())
+    Database.insert(title_text.get(), author_text.get(), year_text.get(), isbn_text.get())
     list1.insert(0, END)  # this strange line again ... to "clear the list" ...
     list1.insert(END, (title_text.get(), author_text.get(), year_text.get(), isbn_text.get()))
     # (for above) at the END of the list, insert those 4 posssible values as a tuple
 
 def delete_command():
-    backend.delete(selected_tuple[0])  # needed to make selected_tuple globally available, pulling out the id (the 0 index item)
+    Database.delete(selected_tuple[0])  # needed to make selected_tuple globally available, pulling out the id (the 0 index item)
 
 def update_command():
-    backend.update(selected_tuple[0],title_text.get(), author_text.get(), year_text.get(), isbn_text.get()) # we have to get what's already there, not what the user may input
+    Database.update(selected_tuple[0],title_text.get(), author_text.get(), year_text.get(), isbn_text.get()) # we have to get what's already there, not what the user may input
 
 window = Tk()
 
