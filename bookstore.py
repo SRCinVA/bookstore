@@ -1,9 +1,15 @@
 from tkinter import *
 from backend import Database  # with OOP, you're now importing a specific object
 
-database=Database()  
+database=Database("books.db") # this "books.db" will flow back to the 'db' in __init__(self,db). The Database() object is also sent back, but to 'self'.
 # 'Database' is the blueprint from the backend.
 # 'database' is the instance of that object here for our use.
+# database=Database() reaches to backend.py, implicitly (invisibly?) giving def __init__() a parameter in doing so.
+# Python then complains that def __init__ () is getting an argument when it doesn't take one.
+# in backend.py, you give def __init__() a parameter (conventionally, "self"), to fulfill this "expectation." 
+# This holds for all other backend.py arguments, so they need to populated with "self"
+# Strange reasoning, but there you go.
+# 
 
 def get_selected_row(event):  # (did not understand his explanation for this)
     try:
@@ -33,25 +39,25 @@ def view_command(): # we need to insert each of the 5 items in the tuple into th
     # to ensure that the list box on the left is empty (not sure what this achieves; supposed to clear it out but it looks the same each time)
     list1.delete(0,END)
     # iterate over the tuples (items)
-    for row in Database.view():
+    for row in database.view():
         list1.insert(END,row)  # 'END' ensures that every item is added to the end of the list
 
 def search_command():
     list1.delete(0,END)
-    for row in Database.search(title_text.get(), author_text.get(), year_text.get(), isbn_text.get()):  # need the .get() method because these are all StringVar objects
+    for row in database.search(title_text.get(), author_text.get(), year_text.get(), isbn_text.get()):  # need the .get() method because these are all StringVar objects
         list1.insert(END, row)  # we want to insert new values (a row) at the end of list1.
 
 def add_command():
-    Database.insert(title_text.get(), author_text.get(), year_text.get(), isbn_text.get())
+    database.insert(title_text.get(), author_text.get(), year_text.get(), isbn_text.get())
     list1.insert(0, END)  # this strange line again ... to "clear the list" ...
     list1.insert(END, (title_text.get(), author_text.get(), year_text.get(), isbn_text.get()))
     # (for above) at the END of the list, insert those 4 posssible values as a tuple
 
 def delete_command():
-    Database.delete(selected_tuple[0])  # needed to make selected_tuple globally available, pulling out the id (the 0 index item)
+    database.delete(selected_tuple[0])  # needed to make selected_tuple globally available, pulling out the id (the 0 index item)
 
 def update_command():
-    Database.update(selected_tuple[0],title_text.get(), author_text.get(), year_text.get(), isbn_text.get()) # we have to get what's already there, not what the user may input
+    database.update(selected_tuple[0],title_text.get(), author_text.get(), year_text.get(), isbn_text.get()) # we have to get what's already there, not what the user may input
 
 window = Tk()
 
