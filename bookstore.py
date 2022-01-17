@@ -33,8 +33,6 @@ def get_selected_row(event):  # (did not understand his explanation for this)
 # will do nothing when there's an empty listbox." (Doing nothing is exactly what we would like to 
 # see happen.)
 
-
-
 def view_command(): # we need to insert each of the 5 items in the tuple into the list
     # to ensure that the list box on the left is empty (not sure what this achieves; supposed to clear it out but it looks the same each time)
     list1.delete(0,END)

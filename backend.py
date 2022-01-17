@@ -28,7 +28,7 @@ class Database:
 
     def search(self, title="", author="", year="", isbn=""):  # need to pass the id of the row to delete
         self.cur.execute("SELECT * FROM book WHERE title=? OR author=? OR year=? OR isbn=?", (title,author,year,isbn)) #still unclear why you need to pass in this tuple
-        rows=self.cur.fetchall() # For some reason he prefixed 'rows' here with 'self'.
+        rows=self.cur.fetchall() # For some reason he prefixed 'rows' here with 'self'. It doesn't look like you need to.
         # self.conn.close() 
         return rows
 
@@ -43,5 +43,8 @@ class Database:
         self.conn.commit()
         # self.conn.close()
 
-    # connect() def __init__() now takes care of this.
+# it's important that we can close the DB. To do this, we need to add a method
+# that can destroy the object ("del") (remember: this is not the same as destroying the DB):
 
+    def __del__(self):  # this method executes, and then the script is exited
+        self.conn.close()
